@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:communiversity/core/home/widgets/zoom_drawer.dart';
+import 'package:communiversity/screens/profile.dart';
 import 'package:communiversity/utils/app_colors.dart';
 import 'package:communiversity/widgets/scaffold_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
             title: 'Communiversity',
             debugShowCheckedModeBanner: false,
             home: ZoomDrawerWidget(),
+            //ZoomDrawerWidget(),
           ),
         );
       },

@@ -5,8 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-CustomAppBar(BuildContext context) => SizedBox(
-      //  preferredSize: Size(1.sw,0.13.sh),
+class CustomAppBar extends StatelessWidget {
+  final String? title;
+  final IconData? leadingIcon;
+  final Widget? subWidget;
+  final BuildContext appbarContext;
+  CustomAppBar(
+      {Key? key,
+      this.title,
+      this.leadingIcon,
+      this.subWidget,
+      required this.appbarContext})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
       width: 1.sw,
       height: 0.13.sh,
       child: Stack(
@@ -23,18 +37,18 @@ CustomAppBar(BuildContext context) => SizedBox(
                 ),
               ),
               leading: Builder(
-                builder: (BuildContext context) => GestureDetector(
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.menu),
+                builder: (BuildContext cc) => GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(leadingIcon!),
                   ),
                   onTap: () {
-                    ZoomDrawer.of(context)?.toggle();
+                    ZoomDrawer.of(cc)?.toggle();
                   },
                 ),
               ),
               primary: false,
-              title: const Text('Home'),
+              title: Text(title!),
               actions: <Widget>[
                 IconButton(
                   icon: const Icon(
@@ -45,67 +59,9 @@ CustomAppBar(BuildContext context) => SizedBox(
               ],
             ),
           ),
-          Positioned(
-            top: 0.10.sh,
-            left: 20.w,
-            right: 20.w,
-            child: CustomTextfield(
-              hintText: AppStrings.search,
-            ),
-          ),
+          subWidget ?? Container(),
         ],
       ),
     );
-
-
-
-// // ignore_for_file: must_be_immutable
-// import 'dart:ui';
-
-
-// import 'package:communiversity/utils/asset_path.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:get/get.dart';
-
-// class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-//   final String title;
-//   final List<Widget>? trailing;
-//   const CustomAppBar({required this.title, this.trailing});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return AppBar(
-//       leading: Builder(
-//         builder: (BuildContext context) => GestureDetector(
-//           child: const Padding(
-//             padding: EdgeInsets.all(6.0),
-//             child: Image(
-//               image: AssetImage(AssetPath.back),
-//             ),
-//           ),
-//           onTap: () => Get.back(),
-//         ),
-//       ),
-//       actions: trailing,
-//       centerTitle: true,
-//       title: Padding(
-//         padding: EdgeInsets.all(3.w),
-//         child: Text(
-//           title.toUpperCase(),
-//           style: TextStyle(
-//             overflow: TextOverflow.visible,
-//             fontSize: 20.sp,
-//           ),
-//         ),
-//       ),
-//       elevation: 0,
-//       backgroundColor: Colors.transparent,
-//     );
-//   }
-
-//   @override
-//   Size get preferredSize => const Size.fromHeight(50);
-// }
-
-
+  }
+}

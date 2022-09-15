@@ -1,5 +1,7 @@
 import 'package:communiversity/utils/app_colors.dart';
+import 'package:communiversity/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../model/menu_item.dart';
 
 class MenuPage extends StatelessWidget {
@@ -18,21 +20,66 @@ class MenuPage extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Spacer(),
-            ...MenuItems.all.map(buildMenuItems).toList(),
+            const Spacer(flex: 1),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: Row(
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.brown,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        fontSize: 25.sp,
+                        text: 'Joe Brewer',
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      CustomText(
+                        fontSize: 10.sp,
+                        color: AppColors.white,
+                        text:
+                            'Joebrewer@domain.com\n1234 Lorem Street Dummy Address\nLos Angeles Us',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             const Spacer(flex: 2),
+            // const Spacer(flex: 2),
+            ...MenuItems.all.map(buildMenuItems).toList(),
+            const Spacer(flex: 3),
           ],
         ),
       ),
     );
   }
 
-  Widget buildMenuItems(CustomMenuItem item) => ListTileTheme(
-        selectedColor: AppColors.white,
+  Widget buildMenuItems(CustomMenuItem item) => Container(
+        constraints: BoxConstraints(
+          maxWidth: 240.w,
+        ),
+        // width: 200.w,
         child: ListTile(
           selectedTileColor: Colors.black.withOpacity(0.1),
+          selectedColor: AppColors.white,
           selected: currentItem == item,
           minLeadingWidth: 20,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(25),
+              bottomRight: Radius.circular(25),
+            ),
+          ),
           leading: Icon(item.icon),
           title: Text(item.title),
           onTap: () => onSelectedItem(item),

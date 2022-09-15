@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -58,10 +57,6 @@ class _HomePageState extends State<HomePage> {
                       child: const CustomListTile(issubHeading: false),
                     );
                   },
-                  //   separatorBuilder: (BuildContext context, int index) =>
-                  //       SizedBox(
-                  //     width: 9.w,
-                  //   ),
                 ),
               ),
               SizedBox(height: 10.h),
