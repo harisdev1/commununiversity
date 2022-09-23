@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names, use_key_in_widget_constructors, prefer_typing_uninitialized_variables
-
 import 'package:communiversity/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,16 +12,17 @@ class CustomTextfield extends StatefulWidget {
   bool? isSuffixIcon;
   bool isReadOnly;
   bool isCenterText;
-  IconData? prefixIcon;
+  String? prefixIconName;
   String? Function(String?)? fieldValidator;
   String? Function(String?)? onSaved;
   String? initialVal;
   TextInputType? fieldType;
+  bool isPrefixIcon;
 
   void Function(String)? onChanged;
   CustomTextfield({
     this.label,
-    this.prefixIcon,
+    this.prefixIconName,
     this.isReadOnly = false,
     this.textController,
     this.hintText,
@@ -33,6 +33,7 @@ class CustomTextfield extends StatefulWidget {
     this.onSaved,
     this.isPasswordField = false,
     this.isCenterText = false,
+    this.isPrefixIcon = true,
     this.onChanged,
   });
 
@@ -52,13 +53,13 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: AppColors.dimWhite,
+            color: AppColors.cream,
           ),
           height: 55.h,
         ),
         Padding(
-          padding:  EdgeInsets.only(
-            top: 10.h,
+          padding: EdgeInsets.only(
+            top: 1.h,
           ),
           child: TextFormField(
             readOnly: widget.isReadOnly,
@@ -74,8 +75,18 @@ class _CustomTextfieldState extends State<CustomTextfield> {
               color: AppColors.black,
             ),
             decoration: InputDecoration(
-              prefixIcon: Icon(widget.prefixIcon),
+              prefixIcon: widget.isPrefixIcon
+                  ? Transform.scale(
+                      scale: 0.4,
+                      child: ImageIcon(
+                        AssetImage(widget.prefixIconName!),
+                      ),
+                    )
+                  : null,
               label: widget.label != null ? Text(widget.label!) : null,
+              labelStyle: TextStyle(
+                color: widget.textController != null ? AppColors.cyan : null,
+              ),
               suffixIcon: widget.isSuffixIcon ?? false
                   ? GestureDetector(
                       child: Icon(

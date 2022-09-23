@@ -1,63 +1,53 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:get/get.dart';
-// import '../../../utils/app_colors.dart';
-// import '../../../utils/app_strings.dart';
-// import '../../../utils/field_validators.dart';
-// import '../../../widgets/center_logo.dart';
-// import '../../../widgets/custom_text.dart';
-// import '../../../widgets/simple_button.dart';
-// bool isForget  =false;
-// class ForgotPassword extends StatelessWidget {
-//    ForgotPassword({Key? key}) : super(key: key);
-//    final controller = Get.put(ForgotPasswordController());
-//   @override
-//   Widget build(BuildContext context) {
-//     return BackgroundImageWidget(
-//       child: SingleChildScrollView(
-//         child: Padding(
-//           padding: EdgeInsets.symmetric(horizontal: 30.w),
-//           child: Form(
-//             autovalidateMode: AutovalidateMode.onUserInteraction,
-//             key: controller.forgotPasswordFormKey,
-//             child: Column(
-//               //crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 SizedBox(height: 120.h),
-//                 CenterLogo(
-//                   logoWidth: 150.w,
-//                   logoHeight: 150.w,
-//                 ),
-//                 SizedBox(height: 30.h),
-//                 CustomText(
-//                   fontSize: 17.sp,
-//                   text: AppStrings.forgotPassword.toUpperCase(),
-//                   color: Colors.white,
-//                 ),
-//                 SizedBox(height: 10.h),
-//                 CustomTextfield(
-//                   hint_Text: AppStrings.enterEmailAddress,
-//                   onSaved: (value) {
-//                     controller.email = value!;
-//                   },
-//                   fieldValidator: (value) {
-//                     return FieldValidator.validateEmail(value!);
-//                   },
-//                 ),
-//                 SizedBox(height: 7.h),
-//                 SimpleButton(
-//                   button_color: AppColors.blackColor,
-//                   button_label: AppStrings.getCode.toUpperCase(),
-//                   onButtonPressed: () {
-//                     isForget =true;
-//                     controller.checkEmail();
-//                   },
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+// ignore_for_file: prefer_const_constructors
+
+import 'package:communiversity/Auth/verify_otp/view/verify_otp.dart';
+import 'package:communiversity/utils/asset_path.dart';
+import 'package:communiversity/widgets/custom_nested_scroll_view.dart';
+import 'package:communiversity/widgets/custom_textfield.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import '../../../utils/app_colors.dart';
+import '../../../utils/app_strings.dart';
+import '../../../widgets/simple_button.dart';
+      
+class ForgetPasswordPage extends StatelessWidget {
+  const ForgetPasswordPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    _forgetPasswordForm() => Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          //  key: controller.loginFormKey,
+          child: Column(
+            children: [
+              SizedBox(height: 50.h),
+              CustomTextfield(
+                prefixIconName: AssetPath.email,
+                label: AppStrings.email,
+              ),
+              SizedBox(height: 7.h),
+              SimpleButton(
+                button_color: AppColors.cyan,
+                button_label: AppStrings.sendCode.toUpperCase(),
+                onButtonPressed: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  Get.to(VerifyOtpPage());
+                },
+              ),
+            ],
+          ),
+        );
+    return Scaffold(
+      body: CustomNestedScrollView(
+        horizontalPadding: 30.w,
+        title: 'Forgot Password',
+        background: Image.asset(
+          AssetPath.forgotPassword,
+          fit: BoxFit.cover,
+        ),
+        child: _forgetPasswordForm(),
+      ),
+    );
+  }
+}

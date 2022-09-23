@@ -1,94 +1,59 @@
-// // ignore_for_file: avoid_print, non_constant_identifier_names, prefer_interpolation_to_compose_strings
+// ignore_for_file: avoid_print, non_constant_identifier_names, prefer_interpolation_to_compose_strings
+import 'dart:convert';
+import 'dart:io';
 
-// import 'package:flutter/material.dart';
-// import 'dart:convert';
-// import 'package:get/get.dart';
-// import 'package:get_storage/get_storage.dart';
+import 'package:communiversity/services/api_service.dart';
+import 'package:communiversity/services/dio_client/dio_client.dart';
+import 'package:communiversity/utils/app_strings.dart';
+import 'package:communiversity/utils/network_strings.dart';
+import 'package:communiversity/widgets/Custom_SnackBar.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-// import '../../../services/connectivity_manager.dart';
+class LoginController extends GetxController {
+  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  late TextEditingController emailController, passwordController;
+  var email = '';
+  var password = '';
 
-// dynamic id;
-// bool isVerified = false;
+  @override
+  void onInit() {
+    super.onInit();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
 
-// class LoginController extends GetxController {
-//   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-//   late TextEditingController emailController, passwordController;
-//   final controller = Get.put(updateProfileController());
-//   final box = GetStorage();
-//   var email = '';
-//   var password = '';
+  @override
+  void onClose() {
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     emailController = TextEditingController();
-//     passwordController = TextEditingController();
-//   }
+  void checkLogin() async {
+    Map<String, dynamic> login_data = {
+      "user_email": "hh22@gmail.com",
+      "user_password": "1234",
+      "user_device_token": "jk545",
+      "user_device_type": "Android",
+      "latitude": "WE",
+      "longitude": "1234"
+      // "user_name": 'h@g.com',
+      // "user_password": 'hhgggh',
+      // "user_device_type": Platform.isIOS ? "ios" : "android",
+      // "user_device_token": "dfddfddf"
+    };
+    var response = await DioClient().postRequest(
+      endPoint: NetworkStrings.loginEndpoint,
+      data: login_data,
+    );
+    var jsonResponse = response!.data;
+    print(jsonResponse);
+    if (response.statusCode == NetworkStrings.SUCCESS_CODE) {
+      Get.snackbar("Success", '');
+    } else {
+      Get.snackbar("Failed", jsonResponse['message']);
+    }
+  }
 
-//   @override
-//   void onReady() {
-//     super.onReady();
-//   }
-
-//   @override
-//   void onClose() {
-//     emailController.dispose();
-//     passwordController.dispose();
-//   }
-
-//   void checkLogin() async {
-//     final isValid = loginFormKey.currentState!.validate();
-//     if (!isValid) {
-//       return;
-//     } else {
-//       ConnectivityManager? _connectivityManager = ConnectivityManager();
-//       if (await _connectivityManager.isInternetConnected()) {
-//         try {
-//           showLoading();
-//           loginFormKey.currentState!.save();
-//           final Map<String, dynamic> data = <String, dynamic>{};
-//           data['user_email'] = email;
-//           data['user_password'] = password;
-//           var response = await ApiService.post(
-//               NetworkStrings.loginEndpoint, data,
-//               isHeader: false);
-//           var dataInJson = jsonDecode(response.body);
-//           if ((response.statusCode == NetworkStrings.SUCCESS_CODE) &&
-//               (dataInJson['status'] == 1)) {
-//             stopLoading();
-//             var obj = LoginResponseModel.fromJson(dataInJson);
-//             id = obj.user?.id;
-//             if (obj.user?.verified == 1) {
-//               customSnackBar(AppStrings.loginSuccessfully);
-//               box.write('token', obj.user?.userAuthentication);
-//               box.write('verified', obj.user?.verified);
-//               box.write('id', obj.user?.id);
-//               controller.setFields(
-//                   obj.user?.fullName, obj.user?.image, obj.user?.userEmail!);
-//               box.write('name', obj.user?.fullName);
-//               box.write('email', obj.user?.userEmail);
-//               box.write('image', obj.user?.image);
-//               isVerified = true;
-//               Get.offAll(const Home());
-//             } else {
-//               customSnackBar(AppStrings.emailNotVerified);
-//               Get.off(VerifyOtp(), arguments: [id]);
-//               isVerified = false;
-//             }
-//           } else {
-//             stopLoading();
-//             customSnackBar(dataInJson['msg']);
-//           }
-//         } catch (e) {
-//           stopLoading();
-//           customSnackBar(AppStrings.somethingWentWrong);
-//         }
-//       } else {
-//         stopLoading();
-//         customSnackBar(AppStrings.noInternetConnection);
-//       }
-//     }
-//   }
-
-//   //------------
-// }
+  //------------
+}

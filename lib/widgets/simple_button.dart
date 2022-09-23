@@ -1,3 +1,4 @@
+import 'package:communiversity/utils/app_colors.dart';
 import 'package:entry/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +13,7 @@ class SimpleButton extends StatelessWidget {
   // ignore: use_key_in_widget_constructors, non_constant_identifier_names
   SimpleButton(
       {this.label_color = Colors.white,
-      this.button_color = Colors.red,
+      this.button_color = AppColors.cyan,
       required this.button_label,
       required this.onButtonPressed});
 
@@ -24,12 +25,12 @@ class SimpleButton extends StatelessWidget {
       child: Entry.all(
         duration: const Duration(seconds: 1),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.h),
+          padding: EdgeInsets.symmetric(vertical: 0.h),
           child: Container(
+            padding: EdgeInsets.symmetric(vertical: 16.h),
             width: deviceWidth,
-            height: 50.h,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(30.w),
               color: button_color,
             ),
             child: Row(

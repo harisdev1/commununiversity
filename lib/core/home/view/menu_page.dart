@@ -1,4 +1,5 @@
 import 'package:communiversity/utils/app_colors.dart';
+import 'package:communiversity/utils/asset_path.dart';
 import 'package:communiversity/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,13 +31,19 @@ class MenuPage extends StatelessWidget {
                     height: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.brown,
+                      image: const DecorationImage(
+                        image: AssetImage(AssetPath.login),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   SizedBox(width: 10.w),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                        if(true)...[
+                              
+                        ],
                       CustomText(
                         fontSize: 25.sp,
                         text: 'Joe Brewer',
@@ -80,7 +87,7 @@ class MenuPage extends StatelessWidget {
               bottomRight: Radius.circular(25),
             ),
           ),
-          leading: Icon(item.icon),
+          leading: ImageIcon(item.iconImage),
           title: Text(item.title),
           onTap: () => onSelectedItem(item),
         ),

@@ -1,23 +1,45 @@
+import 'package:communiversity/utils/asset_path.dart';
 import 'package:flutter/material.dart';
 
 class CustomMenuItem {
   final String title;
-  final IconData icon;
-  const CustomMenuItem(this.title, this.icon);
+  final AssetImage iconImage;
+  const CustomMenuItem(this.title, this.iconImage);
 }
 
 class MenuItems {
-  static const home = CustomMenuItem('Home', Icons.payment_rounded);
-  static const tarHeelTracks =
-      CustomMenuItem('Tar Heel Tracks', Icons.format_paint);
-  static const myMessages = CustomMenuItem('My Messages', Icons.message);
-  static const favourites = CustomMenuItem('Favouites', Icons.favorite_outline);
-  static const settings = CustomMenuItem('Settings', Icons.settings);
-  static const termsAndConditions =
-      CustomMenuItem('Terms & Conditions', Icons.book);
-  static const privacyPolicy =
-      CustomMenuItem('Privacy Policy', Icons.privacy_tip);
-  static const signOut = CustomMenuItem('SignOut', Icons.logout);
+  static const home = CustomMenuItem(
+    'Home',
+    AssetImage(AssetPath.home),
+  );
+  static const tarHeelTracks = CustomMenuItem(
+    'Tar Heel Tracks',
+    AssetImage(AssetPath.heel),
+  );
+  static const myMessages = CustomMenuItem(
+    'My Messages',
+    AssetImage(AssetPath.message),
+  );
+  static const favourites = CustomMenuItem(
+    'Favouites',
+    AssetImage(AssetPath.favourite),
+  );
+  static const settings = CustomMenuItem(
+    'Settings',
+    AssetImage(AssetPath.settings),
+  );
+  static const termsAndConditions = CustomMenuItem(
+    'Terms & Conditions',
+    AssetImage(AssetPath.termsAndConditions),
+  );
+  static const privacyPolicy = CustomMenuItem(
+    'Privacy Policy',
+    AssetImage(AssetPath.privacyPolicy),
+  );
+  static const signOut = CustomMenuItem(
+    'SignOut',
+    AssetImage(AssetPath.signout),
+  );
 
   static const all = <CustomMenuItem>[
     home,

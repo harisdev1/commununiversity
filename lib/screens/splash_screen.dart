@@ -24,14 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Get.to(Login());
-      // if (box.read('token') != null) {
-      //   Logger().e(box.read('token'));
-      //   Get.off(Home());
-      // } else {
-      //   Logger().e(box.read('token'));
-      //   Get.off(LoginMethod());
-      // }
+      Get.off(LoginPage());
     });
   }
 
@@ -40,44 +33,49 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset(
-            AssetPath.topLeftSvg,
-            width: 0.7.sw,
-          ),
+          _borderBanner(229.57.w, 242.h, AssetPath.topLeftSvg),
           _animatedLogo(),
-          Spacer(),
-          Image.asset(
-            AssetPath.bottomSvg,
-            width: double.infinity,
-            scale: 3,
-          ),
+          SizedBox(height: 60.h),
+          _borderBanner(1.sw, 122.78.h, AssetPath.bottomSvg),
         ],
       ),
     );
   }
 }
 
+Widget _borderBanner(double width, double height, String assetName) =>
+    Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: AssetImage(assetName),
+        ),
+      ),
+    );
+
 Widget _animatedLogo() {
-  return Center(
-    child: Entry(
-      xOffset: -1000,
-      scale: 20,
-      delay: Duration(milliseconds: 300),
-      duration: Duration(milliseconds: 200),
-      curve: Curves.ease,
+  return Expanded(
+    child: Center(
       child: Entry(
-        opacity: .5,
-        angle: 3.1415,
-        scale: .5,
-        delay: Duration(milliseconds: 900),
-        duration: Duration(milliseconds: 500),
-        curve: Curves.decelerate,
-        child: Logo(
-          logoWidth: 350.w,
-          logoHeight: 350.w,
+        xOffset: -1000,
+        scale: 20,
+        delay: Duration(milliseconds: 300),
+        duration: Duration(milliseconds: 200),
+        curve: Curves.ease,
+        child: Entry(
+          opacity: .5,
+          angle: 3.1415,
+          scale: .5,
+          delay: Duration(milliseconds: 900),
+          duration: Duration(milliseconds: 500),
+          curve: Curves.decelerate,
+          child: Logo(
+            logoWidth: 286.w,
+            logoHeight: 329.h,
+          ),
         ),
       ),
     ),

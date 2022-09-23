@@ -8,7 +8,7 @@ class ForgotPasswordResponseModel {
   late final String msg;
   late final String userId;
 
-  ForgotPasswordResponseModel.fromJson(Map<String, dynamic> json){
+  ForgotPasswordResponseModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     msg = json['msg'];
     userId = json['userId'];

@@ -1,10 +1,11 @@
 // ignore_for_file: constant_identifier_names
 
 class NetworkStrings {
+  NetworkStrings._();
   //------------------------- Base URLS ------------------------------------
 
-  static const String apiBaseUrl = "http://server.appsstaging.com:3017/api/";
-  static const String imageBaseUrl = "http://server.appsstaging.com:3017/";
+  static const String apiBaseUrl = "https://server.appsstaging.com:3088/api/";
+  static const String imageBaseUrl = "https://server.appsstaging.com:/3088";
 
 //-------------------------------- AUTH-----------------------------------
   static const String signupEndpoint = "signup";

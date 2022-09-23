@@ -1,5 +1,5 @@
-abstract class AppStrings {
-  //************************************ AUTH STRINGS ****************************************
+class AppStrings {
+  //***************** AUTH STRINGS **********************
 
   //----------------- LOGIN --------------------
 
@@ -19,13 +19,14 @@ abstract class AppStrings {
   static const confirmPassword = 'Confirm Password';
   static const bio = 'Bio';
   static const alreadyHaveAnAccount = 'Already have an account?';
+  static const signup = 'Signup';
 
   //----------------- FORGOT PASSWORD -------------
 
   static const sendCode = 'Send code';
 
   //----------------- ENTER OTP VERIFICATION --------
-
+  static const verify = 'Verify';
   static const didnotReceiveCode = "Didn't Receive Code?";
   static const resend = 'Resend';
   static const timer = '00:59';
@@ -81,4 +82,10 @@ abstract class AppStrings {
 
   //--------------------- OTHERS -------------------
   static const noInternetConnection = 'No Internet Connection';
+  static const somethingWentWrong = 'Something Went Wrong';
+
+  static const programOptionsList = [
+    'Graduate',
+    'Bachelor',
+  ];
 }

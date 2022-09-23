@@ -1,10 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:communiversity/Auth/login/view/login.dart';
+import 'package:communiversity/core/games/games_page.dart';
 import 'package:communiversity/core/home/view/home_page.dart';
 import 'package:communiversity/core/home/widgets/zoom_drawer.dart';
+import 'package:communiversity/screens/edit_profile.dart';
 import 'package:communiversity/screens/profile.dart';
 import 'package:communiversity/screens/splash_screen.dart';
 import 'package:communiversity/utils/app_colors.dart';
 import 'package:communiversity/utils/app_strings.dart';
+import 'package:communiversity/utils/asset_path.dart';
 import 'package:communiversity/widgets/custom_appbar.dart';
 import 'package:communiversity/widgets/custom_textfield.dart';
 
@@ -21,7 +26,7 @@ class ScaffoldWrapper extends StatefulWidget {
 class _ScaffoldWrapperState extends State<ScaffoldWrapper> {
   List<Widget> pages = <Widget>[
     HomePage(),
-    HomePage(),
+    GamesPage(),
     HomePage(),
     ProfilePage(),
   ];
@@ -35,28 +40,7 @@ class _ScaffoldWrapperState extends State<ScaffoldWrapper> {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomAppBar(
-                  appbarContext: context,
-                  title: 'Home',
-                  leadingIcon: Icons.menu,
-                  subWidget: Positioned(
-                    top: 0.10.sh,
-                    left: 20.w,
-                    right: 20.w,
-                    child: CustomTextfield(
-                      hintText: AppStrings.search,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 50.h),
-
-                //   pages.elementAt(_selectedIndex),
-              ],
-            ),
+            body: pages.elementAt(_selectedIndex),
             bottomNavigationBar: TabBar(
               unselectedLabelColor: Colors.grey,
               labelColor: AppColors.cyan,
@@ -68,10 +52,10 @@ class _ScaffoldWrapperState extends State<ScaffoldWrapper> {
               },
               indicator: CustomIndicator(),
               tabs: const [
-                Tab(icon: Icon(Icons.directions_car)),
-                Tab(icon: Icon(Icons.directions_bike)),
-                Tab(icon: Icon(Icons.directions_car)),
-                Tab(icon: Icon(Icons.man)),
+                Tab(icon: ImageIcon(AssetImage(AssetPath.home))),
+                Tab(icon: ImageIcon(AssetImage(AssetPath.game))),
+                Tab(icon: ImageIcon(AssetImage(AssetPath.event))),
+                Tab(icon: ImageIcon(AssetImage(AssetPath.profile))),
               ],
             ),
           );
