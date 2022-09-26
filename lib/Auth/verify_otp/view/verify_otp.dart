@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
-
-import 'package:communiversity/Auth/reset_password/view/reset_password.dart';
+import 'package:communiversity/Auth/verify_otp/controller/verify_otp_controller.dart';
 import 'package:communiversity/utils/asset_path.dart';
 import 'package:communiversity/utils/themes.dart';
 import 'package:communiversity/widgets/custom_nested_scroll_view.dart';
 import 'package:communiversity/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_strings.dart';
@@ -58,7 +56,7 @@ class VerifyOtpPage extends StatelessWidget {
 
     Widget _verifyOtpForm() => Form(
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          //  key: controller.loginFormKey,
+          key: VerifyOtpController.i.verifyOtpFormKey,
           child: Column(
             children: [
               SizedBox(height: 50.h),
@@ -73,7 +71,7 @@ class VerifyOtpPage extends StatelessWidget {
                 button_label: AppStrings.verify.toUpperCase(),
                 onButtonPressed: () {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  Get.to(ResetPasswordPage());
+                  VerifyOtpController.i.checkOtp();
                 },
               ),
             ],

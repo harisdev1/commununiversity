@@ -21,17 +21,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final loginController = Get.put(LoginController());
-
   @override
   Widget build(BuildContext context) {
     Widget _emailField() {
       return CustomTextfield(
         prefixIconName: AssetPath.email,
         label: AppStrings.email,
-        textController: loginController.emailController,
+        textController: LoginController.i.emailController,
         onSaved: (value) {
-          loginController.email = value!;
+          LoginController.i.email = value!;
         },
         fieldValidator: (value) {
           return FieldValidator.validateEmail(value!);
@@ -42,12 +40,12 @@ class _LoginPageState extends State<LoginPage> {
     Widget _passwordField() {
       return CustomTextfield(
         prefixIconName: AssetPath.password,
-        textController: loginController.passwordController,
+        textController: LoginController.i.passwordController,
         isSuffixIcon: true,
         isPasswordField: true,
         label: AppStrings.password,
         onSaved: (value) {
-          loginController.password = value!;
+          LoginController.i.password = value!;
         },
         fieldValidator: (value) {
           return FieldValidator.validatePassword(value!);
@@ -72,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
         button_label: AppStrings.login.toUpperCase(),
         onButtonPressed: () {
           FocusManager.instance.primaryFocus?.unfocus();
-          loginController.checkLogin();
+          LoginController.i.checkLogin();
         },
       );
     }
@@ -90,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
     Widget _loginForm() {
       return Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        key: loginController.loginFormKey,
+        key: LoginController.i.loginFormKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

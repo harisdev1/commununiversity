@@ -1,4 +1,4 @@
-import 'package:communiversity/screens/change_password.dart';
+import 'package:communiversity/Auth/change_password/view/change_password.dart';
 import 'package:communiversity/utils/app_colors.dart';
 import 'package:communiversity/widgets/custom_appbar.dart';
 import 'package:communiversity/widgets/custom_text.dart';

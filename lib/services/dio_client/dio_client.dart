@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:communiversity/services/connectivity_manager.dart';
+import 'package:communiversity/services/dio_client/dio_interceptors.dart';
 import 'package:communiversity/utils/network_strings.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'dio_interceptor.dart';
 
 class DioClient {
   static Dio? _dio;
@@ -13,10 +13,8 @@ class DioClient {
   static CancelToken? _cancelToken;
   DioClient._createInstance();
   factory DioClient() {
-    // factory with constructor, return some value
     if (_dioClient == null) {
-      _dioClient = DioClient
-          ._createInstance(); // This is executed only once, singleton object
+      _dioClient = DioClient._createInstance();
       _getDio();
       _connectivityManager = ConnectivityManager();
       _cancelToken ??= CancelToken();
@@ -25,12 +23,14 @@ class DioClient {
   }
   static void _getDio() {
     _dio ??= Dio();
+
     (_dio?.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (HttpClient dioClient) {
       dioClient.badCertificateCallback =
           ((X509Certificate cert, String host, int port) => true);
       return dioClient;
     };
+    _dio?.interceptors.add(LoggerInterceptor());
   }
 
   ///-------------------- Get Request -------------------- ///

@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:communiversity/bindings.dart';
 import 'package:communiversity/core/home/widgets/zoom_drawer.dart';
 import 'package:communiversity/screens/splash_screen.dart';
 import 'package:communiversity/utils/app_colors.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return SafeArea(
           child: GetMaterialApp(
+            initialBinding: AppBindings(),
             // builder: (context, child) {
             //   return ScrollConfiguration(
             //     behavior: MyScrollBehavior(),

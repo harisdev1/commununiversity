@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 import 'package:communiversity/Auth/login/view/login.dart';
+import 'package:communiversity/Auth/signup/controller/signup_controller.dart';
 import 'package:communiversity/utils/asset_path.dart';
 import 'package:communiversity/widgets/custom_drop_down.dart';
 import 'package:communiversity/widgets/custom_nested_scroll_view.dart';
@@ -18,9 +19,10 @@ class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final signupController = Get.put(SignUpController());
     _signUpForm() => Form(
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          //  key: controller.loginFormKey,
+          key: signupController.signupFormKey,
           child: Column(
             children: [
               SizedBox(height: 50.h),
@@ -70,6 +72,7 @@ class SignupPage extends StatelessWidget {
                 button_label: AppStrings.signup.toUpperCase(),
                 onButtonPressed: () {
                   FocusManager.instance.primaryFocus?.unfocus();
+                  signupController.checkSignUp();
                 },
               ),
               SizedBox(height: 18.h),

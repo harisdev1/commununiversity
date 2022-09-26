@@ -1,69 +1,59 @@
-// // ignore_for_file: avoid_print, non_constant_identifier_names
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
-// import 'package:calcugasliter/Auth/login/view/login.dart';
-// import 'package:calcugasliter/services/api_service.dart';
-// import 'package:calcugasliter/services/connectivity_manager.dart';
-// import 'package:calcugasliter/utils/app_strings.dart';
-// import 'package:calcugasliter/utils/loader.dart';
-// import 'package:calcugasliter/utils/network_strings.dart';
-// import 'package:calcugasliter/widgets/Custom_SnackBar.dart';
-// import 'package:flutter/material.dart';
-// import 'dart:convert';
-// import 'package:get/get.dart';
+import 'package:communiversity/Auth/login/view/login.dart';
+import 'package:communiversity/services/dio_client/dio_client.dart';
+import 'package:communiversity/utils/app_strings.dart';
+import 'package:communiversity/utils/network_strings.dart';
+import 'package:communiversity/widgets/Custom_SnackBar.dart';
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:get/get.dart';
 
-// dynamic args = Get.arguments;
+class ResetPasswordController extends GetxController {
+  final GlobalKey<FormState> resetPasswordFormKey = GlobalKey<FormState>();
+  late TextEditingController passwordController, confirmPasswordController;
+  static ResetPasswordController get i => Get.find();
 
-// class ResetPasswordController extends GetxController {
-//   final GlobalKey<FormState> resetPasswordFormKey = GlobalKey<FormState>();
-//   late TextEditingController passwordController, confirmPasswordController;
+  var password = '';
+  var confirmPassword = '';
 
-//   var password = '';
-//   var confirmPassword = '';
+  @override
+  void onInit() {
+    super.onInit();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+  }
 
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     passwordController = TextEditingController();
-//     confirmPasswordController = TextEditingController();
-//   }
+  @override
+  void onReady() {
+    super.onReady();
+  }
 
-//   @override
-//   void onReady() {
-//     super.onReady();
-//   }
-
-//   void checkResetPassword() async {
-//     final isValid = resetPasswordFormKey.currentState!.validate();
-//     if (!isValid) {
-//       return;
-//     } else {
-//       ConnectivityManager? connectivityManager = ConnectivityManager();
-//       if (await connectivityManager.isInternetConnected()) {
-//         try {
-//           resetPasswordFormKey.currentState!.save();
-//           showLoading();
-//           final Map<String, dynamic> data = <String, dynamic>{};
-//           data['user_id'] = args[0];
-//           data['new_password'] = password;
-//           var response = await ApiService.put(
-//               NetworkStrings.changePasswordEndpoint, data, false);
-//           var body = jsonDecode(response.body);
-//           if (response.statusCode == NetworkStrings.SUCCESS_CODE) {
-//             stopLoading();
-//             customSnackBar(AppStrings.passwordChangedSuccesfully);
-//             Get.to(Login());
-//           } else {
-//             stopLoading();
-//             customSnackBar(body['message']);
-//           }
-//         } catch (_) {
-//           stopLoading();
-//           customSnackBar(AppStrings.somethingWentWrong);
-//         }
-//       } else {
-//         stopLoading();
-//         customSnackBar(AppStrings.noInternetConnection);
-//       }
-//     }
-//   }
-// }
+  void checkResetPassword() async {
+    final isValid = resetPasswordFormKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    } else {
+      try {
+        resetPasswordFormKey.currentState!.save();
+        final Map<String, dynamic> resetPasswordData = <String, dynamic>{
+          "user_id": "6331834b8a0093437e4b2a08",
+          "user_password": "12345"
+        };
+        var response = await DioClient().postRequest(
+          endPoint: NetworkStrings.resetPasswordEndpoint,
+          data: resetPasswordData,
+        );
+        //  var jsonResponse = response!.data;
+        if (response!.statusCode == NetworkStrings.SUCCESS_CODE) {
+          Get.snackbar("Success", '');
+          Get.to(const LoginPage());
+        } else {
+          Get.snackbar("Failed", "");
+        }
+      } catch (_) {
+        customSnackBar(AppStrings.somethingWentWrong);
+      }
+    }
+  }
+}

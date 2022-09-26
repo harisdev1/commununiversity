@@ -1,12 +1,9 @@
 class ForgotPasswordResponseModel {
-  ForgotPasswordResponseModel({
-    required this.status,
-    required this.msg,
-    required this.userId,
-  });
-  late final int status;
-  late final String msg;
-  late final String userId;
+  int? status;
+  String? msg;
+  String? userId;
+
+  ForgotPasswordResponseModel({this.status, this.msg, this.userId});
 
   ForgotPasswordResponseModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -15,7 +12,7 @@ class ForgotPasswordResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['msg'] = msg;
     data['userId'] = userId;

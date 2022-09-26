@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:communiversity/Auth/fogot_password/controller/forgot_password_controller.dart';
 import 'package:communiversity/Auth/verify_otp/view/verify_otp.dart';
 import 'package:communiversity/utils/asset_path.dart';
 import 'package:communiversity/widgets/custom_nested_scroll_view.dart';
@@ -10,15 +11,16 @@ import 'package:get/get.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_strings.dart';
 import '../../../widgets/simple_button.dart';
-      
+
 class ForgetPasswordPage extends StatelessWidget {
   const ForgetPasswordPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final forgetPasswordController = Get.put(ForgotPasswordController());
     _forgetPasswordForm() => Form(
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          //  key: controller.loginFormKey,
+          key: forgetPasswordController.forgotPasswordFormKey,
           child: Column(
             children: [
               SizedBox(height: 50.h),
@@ -32,7 +34,8 @@ class ForgetPasswordPage extends StatelessWidget {
                 button_label: AppStrings.sendCode.toUpperCase(),
                 onButtonPressed: () {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  Get.to(VerifyOtpPage());
+                  forgetPasswordController.checkEmail();
+                  // Get.to(VerifyOtpPage());
                 },
               ),
             ],

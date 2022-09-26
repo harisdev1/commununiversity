@@ -1,73 +1,92 @@
 class SignupResponse {
-  SignupResponse({
-    required this.status,
-    required this.msg,
-    required this.user,
-  });
-  late final int status;
-  late final String msg;
-  late final User user;
+  int? status;
+  String? msg;
+  User? user;
+
+  SignupResponse({this.status, this.msg, this.user});
 
   SignupResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     msg = json['msg'];
-    user = User.fromJson(json['user']);
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['status'] = status;
-    data['msg'] = msg;
-    data['user'] = user.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['msg'] = this.msg;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
     return data;
   }
 }
 
 class User {
-  late final String fullName;
-  late final String userEmail;
-  late final String userPassword;
-  late final int verified;
-  late final String id;
-  late final String userAuthentication;
-  late final String createdAt;
-  late final String updatedAt;
-  late final int v;
-  User({
-    required this.fullName,
-    required this.userEmail,
-    required this.userPassword,
-    required this.verified,
-    required this.id,
-    required this.userAuthentication,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-  });
+  String? userName;
+  String? userProgram;
+  String? address;
+  String? bio;
+  String? userEmail;
+  String? userPassword;
+  String? image;
+  int? code;
+  int? verified;
+  String? sId;
+  String? userAuthentication;
+  String? createdAt;
+  String? updatedAt;
+  int? iV;
+
+  User(
+      {this.userName,
+      this.userProgram,
+      this.address,
+      this.bio,
+      this.userEmail,
+      this.userPassword,
+      this.image,
+      this.code,
+      this.verified,
+      this.sId,
+      this.userAuthentication,
+      this.createdAt,
+      this.updatedAt,
+      this.iV});
 
   User.fromJson(Map<String, dynamic> json) {
-    fullName = json['full_name'];
+    userName = json['user_name'];
+    userProgram = json['user_program'];
+    address = json['address'];
+    bio = json['bio'];
     userEmail = json['user_email'];
     userPassword = json['user_password'];
+    image = json['image'];
+    code = json['code'];
     verified = json['verified'];
-    id = json['_id'];
+    sId = json['_id'];
     userAuthentication = json['user_authentication'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    v = json['__v'];
+    iV = json['__v'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['full_name'] = fullName;
-    _data['user_email'] = userEmail;
-    _data['user_password'] = userPassword;
-    _data['verified'] = verified;
-    _data['_id'] = id;
-    _data['user_authentication'] = userAuthentication;
-    _data['createdAt'] = createdAt;
-    _data['updatedAt'] = updatedAt;
-    _data['__v'] = v;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['user_name'] = this.userName;
+    data['user_program'] = this.userProgram;
+    data['address'] = this.address;
+    data['bio'] = this.bio;
+    data['user_email'] = this.userEmail;
+    data['user_password'] = this.userPassword;
+    data['image'] = this.image;
+    data['code'] = this.code;
+    data['verified'] = this.verified;
+    data['_id'] = this.sId;
+    data['user_authentication'] = this.userAuthentication;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['__v'] = this.iV;
+    return data;
   }
 }

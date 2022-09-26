@@ -10,9 +10,9 @@ class NetworkStrings {
 //-------------------------------- AUTH-----------------------------------
   static const String signupEndpoint = "signup";
   static const String loginEndpoint = "login";
-  static const String forgotPasswordEndpoint = "forgotPassword";
-  static const String verifyOtpEndpoint = "verifyOtp";
-  static const String changePasswordEndpoint = "changePassword";
+  static const String forgotPasswordEndpoint = "forgetPassword";
+  static const String verifyOtpEndpoint = "OTPverification";
+  static const String resetPasswordEndpoint = "resetPassword";
   static const String resendCodeEndpoint = "resendCode";
   static const String socialLoginEndpoint = "socialLogin";
   static const String logoutEndPoint = "logout";

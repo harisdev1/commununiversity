@@ -1,100 +1,73 @@
-// // ignore_for_file: avoid_print, non_constant_identifier_names
-// import 'package:calcugasliter/Auth/signup/model/signup_model.dart';
-// import 'package:calcugasliter/Auth/verify_otp/view/verify_otp.dart';
-// import 'package:calcugasliter/services/api_service.dart';
-// import 'package:calcugasliter/utils/app_colors.dart';
-// import 'package:calcugasliter/utils/app_strings.dart';
-// import 'package:calcugasliter/utils/loader.dart';
-// import 'package:calcugasliter/utils/network_strings.dart';
-// import 'package:calcugasliter/widgets/Custom_SnackBar.dart';
-// import 'package:flutter/material.dart';
-// import 'dart:convert';
-// import 'package:get/get.dart';
-// import 'package:get_storage/get_storage.dart';
-// import '../../../services/connectivity_manager.dart';
-// import '../../../utils/routes.dart';
+import 'package:communiversity/services/dio_client/dio_client.dart';
+import 'package:communiversity/utils/network_strings.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-// bool isSignup = false;
+class SignUpController extends GetxController {
+  final GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
-// class SignUpController extends GetxController {
-//   final GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
+  late TextEditingController nameController,
+      emailController,
+      passwordController,
+      confirmPasswordController;
 
-//   late TextEditingController nameController,
-//       emailController,
-//       passwordController,
-//       confirmPasswordController;
+  var name = '';
+  var email = '';
+  var password = '';
+  var confirmPassword = '';
 
-//   final box = GetStorage();
-//   var name = '';
-//   var email = '';
-//   var password = '';
-//   var confirmPassword = '';
+  @override
+  void onInit() {
+    super.onInit();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    nameController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+  }
 
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     emailController = TextEditingController();
-//     passwordController = TextEditingController();
-//     nameController = TextEditingController();
-//     confirmPasswordController = TextEditingController();
-//   }
+  @override
+  void onReady() {
+    super.onReady();
+  }
 
-//   @override
-//   void onReady() {
-//     super.onReady();
-//   }
+  @override
+  void onClose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    nameController.dispose();
+  }
 
-//   @override
-//   void onClose() {
-//     emailController.dispose();
-//     passwordController.dispose();
-//     confirmPasswordController.dispose();
-//     nameController.dispose();
-//   }
-
-//   void checkSignUp() async {
-//     isSignup = true;
-//     update();
-//     final isValid = signupFormKey.currentState!.validate();
-//     if (!isValid) {
-//       return;
-//     } else {
-//       signupFormKey.currentState!.save();
-//       ConnectivityManager? _connectivityManager = ConnectivityManager();
-//       if (await _connectivityManager.isInternetConnected()) {
-//         try {
-//           showLoading();
-
-//           print('form Valid');
-//           final Map<String, dynamic> data = <String, dynamic>{};
-//           data['full_name'] = name;
-//           data['user_email'] = email;
-//           data['user_password'] = password;
-//           data['confirm_password'] = confirmPassword;
-
-//           var response = await ApiService.post(
-//               NetworkStrings.signupEndpoint, data,
-//               isHeader: false);
-//           var body = jsonDecode(response.body);
-//           if (response.statusCode == NetworkStrings.SUCCESS_CREATED_CODE) {
-//             stopLoading();
-//             var obj = SignupResponse.fromJson(body);
-//             customSnackBar("SignUp SucessFully");
-//             box.write('Token', obj.user.userAuthentication);
-//             Get.to(VerifyOtp(), arguments: [obj.user.id]);
-//           }
-//           if (response.statusCode != NetworkStrings.SUCCESS_CREATED_CODE) {
-//             stopLoading();
-//             customSnackBar(body['msg']);
-//           }
-//         } catch (e) {
-//           stopLoading();
-//           customSnackBar(AppStrings.somethingWentWrong);
-//         }
-//       } else {
-//         stopLoading();
-//         customSnackBar(AppStrings.noInternetConnection);
-//       }
-//     }
-//   }
-// }
+  void checkSignUp() async {
+    final isValid = signupFormKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    } else {
+      signupFormKey.currentState!.save();
+      try {
+        print('form Valid');
+        final Map<String, dynamic> signupData = <String, dynamic>{
+          "user_name": "hhhh",
+          "user_email": "h21@gmail.com",
+          "user_program": "SE",
+          "address": "A357 Block I",
+          "user_password": "1234",
+          "confirm_password": "1234",
+          "bio": "Sama"
+        };
+        var response = await DioClient().postRequest(
+          endPoint: NetworkStrings.signupEndpoint,
+          data: signupData,
+        );
+        var jsonResponse = response!.data;
+        if (response.statusCode == NetworkStrings.SUCCESS_CREATED_CODE) {
+          Get.snackbar("SignUP SuccessFUlly", '');
+        } else {
+          Get.snackbar("Failed", "");
+        }
+      } catch (e) {
+        print(e);
+      } finally {}
+    }
+  }
+}
